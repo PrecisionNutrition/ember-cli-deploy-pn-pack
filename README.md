@@ -33,7 +33,7 @@ This is **private** npm module that exposes the basic config needed to boostrap 
 
 If you want to use the [Dev Workflow](http://ember-cli.com/ember-cli-deploy/docs/v0.5.x/development-workflow/) just add
 
-```
+```diff
 +    emberCLIDeploy: {
 +      runOnPostBuild: (env === 'development') ? 'development-postbuild' : false,
 +      shouldActivate: true

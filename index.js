@@ -41,6 +41,7 @@ module.exports = {
       };
       ENV.redis = {
         revisionKey: '__development__',
+        keyPrefix: prefix,
         allowOverwrite: true,
         host: 'localhost',
         port: 6379,

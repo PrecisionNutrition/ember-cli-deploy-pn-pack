@@ -19,8 +19,8 @@
   ],
   "dependencies": {
     "dotenv": "^1.0.0",
-    "ember-cli-deploy-lightning-pack": "0.3.0",
-    "ember-cli-deploy-slack": "0.0.3",
+    "ember-cli-deploy-lightning-pack": "^0.6.1",
+    "ember-cli-deploy-slack": "^0.1.0",
     "ember-cli-deploy-ssh-tunnel": "0.2.1",
     "scp2": "^0.2.2"
   }

@@ -72,6 +72,10 @@ module.exports = {
           host: domain
         };
 
+        ENV["revision-data"] = {
+          type: 'git-commit',
+        };
+
         ENV.redis = {
           allowOverwrite: true,
           host: 'localhost',

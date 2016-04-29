@@ -10,7 +10,7 @@
   "author": "Mattia Gheda and the PN team",
   "license": "MIT",
   "devDependencies": {
-    "ember-cli": "1.13.13",
+    "ember-cli": "2.5.0",
     "ember-cli-release": "0.2.8"
   },
   "keywords": [
@@ -18,10 +18,10 @@
     "ember-cli-deploy-plugin-pack"
   ],
   "dependencies": {
-    "dotenv": "^1.0.0",
+    "dotenv": "^2.0.0",
     "ember-cli-deploy-lightning-pack": "^0.6.1",
     "ember-cli-deploy-slack": "^0.1.0",
-    "ember-cli-deploy-ssh-tunnel": "0.2.1",
-    "scp2": "^0.2.2"
+    "ember-cli-deploy-ssh-tunnel": "0.2.2",
+    "scp2": "^0.3.0"
   }
 }

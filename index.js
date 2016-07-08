@@ -53,6 +53,8 @@ module.exports = {
 
     } else {
 
+      ENV.plugins = ['ssh-tunnel', 'build', 'gzip', 'revision-data', 'manifest', 's3:s3-all', 's3:s3-source-maps', 'redis', 'display-revisions', 'slack'];
+
       if (!pluginPackConfig.isValidTarget(deployTarget)) {
         throw new Error('Invalid deployTarget ' + deployTarget);
       }
@@ -82,12 +84,24 @@ module.exports = {
           keyPrefix: prefix
         };
 
-        ENV.s3 = {
+        ENV['s3-all'] = {
           accessKeyId: process.env.AWS_ACCESS_KEY_ID,
           secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
           bucket: process.env.AWS_ASSET_BUCKET,
           region: process.env.AWS_DEPLOYMENT_REGION,
-          prefix: prefix
+          prefix: deployTarget + "/" + prefix
+        };
+
+        ENV['s3-source-maps'] = {
+          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+          bucket: process.env.AWS_ASSET_BUCKET,
+          region: process.env.AWS_DEPLOYMENT_REGION,
+          prefix: deployTarget + "/" + prefix,
+          manifestPath: null,
+          filePattern: '**/+(vendor|' + prefix + ').map',
+          cacheControl: 'no-cache, no-store, must-revalidate',
+          expires: 0
         };
 
         ENV.slack = {

@@ -10,7 +10,7 @@
   "author": "Mattia Gheda and the PN team",
   "license": "MIT",
   "devDependencies": {
-    "ember-cli": "1.13.13",
+    "ember-cli": "2.8.0",
     "ember-cli-release": "0.2.8"
   },
   "keywords": [

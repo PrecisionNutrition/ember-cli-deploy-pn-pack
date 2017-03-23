@@ -1,9 +1,9 @@
 /* jshint node: true */
 'use strict';
-var Promise = require('ember-cli/lib/ext/promise');
+var RSVP = require('rsvp');
 
 function sshToServer(username, domain) {
-  return new Promise(function(resolve, reject) {
+  return new RSVP.Promise(function(resolve, reject) {
     var client = require('scp2');
 
     var options = {

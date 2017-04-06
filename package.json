@@ -21,7 +21,7 @@
     "dotenv": "^1.0.0",
     "ember-cli-deploy-lightning-pack": "^0.6.4",
     "ember-cli-deploy-slack": "^1.0.0",
-    "ember-cli-deploy-ssh-tunnel": "0.2.1",
+    "ember-cli-deploy-ssh-tunnel": "1.0.0",
     "scp2": "^0.2.2"
   }
 }

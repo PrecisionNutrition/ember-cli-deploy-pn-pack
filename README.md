@@ -1,5 +1,7 @@
 # ember-cli-deploy-pn-pack
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/PrecisionNutrition/ember-cli-deploy-pn-pack.svg)](https://greenkeeper.io/)
+
 > An ember-cli-deploy plugin pack to implement a deployment pattern for PrecisonNutrition's Ember apps
 
 <hr/>

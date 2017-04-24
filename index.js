@@ -61,18 +61,27 @@ module.exports = {
 
       var domain = pluginPackConfig.domain(deployTarget);
       var username = pluginPackConfig.SSH_USERNAME;
+      var bastionHost = pluginPackConfig.bastionHost(deployTarget);
 
-      return sshToServer(username, domain).then(function() {
+      return sshToServer(username, bastionHost || domain).then(function() {
         require('dotenv').load({path: '.env.remote'});
       }).then(function() {
         ENV.build = {
           environment: pluginPackConfig.isProduction(deployTarget) ? 'production' : 'staging'
         };
 
-        ENV['ssh-tunnel'] = {
-          username: pluginPackConfig.SSH_USERNAME,
-          host: domain
-        };
+        if (deployTarget == 'aws-prod') {
+          ENV['ssh-tunnel'] = {
+            username: pluginPackConfig.SSH_USERNAME,
+            host: bastionHost,
+            dstHost: domain,
+          };
+        } else {
+          ENV['ssh-tunnel'] = {
+            username: pluginPackConfig.SSH_USERNAME,
+            host: domain,
+          };
+        }
 
         ENV["revision-data"] = {
           type: 'git-commit',

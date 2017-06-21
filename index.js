@@ -149,6 +149,14 @@ module.exports = {
           }
         };
 
+        ENV.sentry = {
+          publicUrl: `https://${domain}`,
+          sentryUrl: 'https://app.getsentry.com',
+          sentryOrganizationSlug: 'PN',
+          sentryProjectSlug: prefix,
+          sentryApiKey: process.env.STRIPE_API_KEY
+        };
+
         return ENV;
       });
     }

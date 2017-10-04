@@ -53,7 +53,7 @@ module.exports = {
 
     } else {
 
-      ENV.plugins = ['ssh-tunnel', 'build', 'gzip', 'revision-data', 'manifest', 's3:s3-all', 's3:s3-source-maps', 'redis', 'display-revisions', 'slack'];
+      ENV.plugins = ['ssh-tunnel', 'build', 'gzip', 'revision-data', 'manifest', 's3:s3-all', 's3:s3-source-maps', 'redis', 'display-revisions', 'slack', 'sentry'];
 
       if (!pluginPackConfig.isValidTarget(deployTarget)) {
         throw new Error('Invalid deployTarget ' + deployTarget);

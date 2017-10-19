@@ -150,11 +150,15 @@ module.exports = {
         };
 
         ENV.sentry = {
-          publicUrl: `https://${domain}`,
-          sentryUrl: 'https://app.getsentry.com',
-          sentryOrganizationSlug: 'PN',
+          // the URL or CDN your js assets are served from
+          // the sentry install you're using, https://sentry.io for hosted accounts
+          sentryUrl: 'https://sentry.io',
+          sentryOrganizationSlug: 'precision-nutrition-ug',
           sentryProjectSlug: prefix,
-          sentryApiKey: process.env.STRIPE_API_KEY
+          publicUrl: `${process.env.EMBER_CLI_ASSET_HOST}/${deployTarget}/${prefix}`,
+
+          sentryApiKey: process.env.SENTRY_API_KEY,
+          sentryBearerApiKey: process.env.SENTRY_API_KEY,
         };
 
         return ENV;

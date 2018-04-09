@@ -70,7 +70,7 @@ module.exports = {
           environment: pluginPackConfig.isProduction(deployTarget) ? 'production' : 'staging'
         };
 
-        if (deployTarget == 'aws-prod') {
+        if (deployTarget === 'aws-prod' || deployTarget === 'aws-qa') {
           ENV['ssh-tunnel'] = {
             username: pluginPackConfig.SSH_USERNAME,
             host: bastionHost,

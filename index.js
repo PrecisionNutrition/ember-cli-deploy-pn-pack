@@ -153,7 +153,7 @@ module.exports = {
           // the URL or CDN your js assets are served from
           // the sentry install you're using, https://sentry.io for hosted accounts
           sentryUrl: 'https://sentry.io',
-          sentryOrganizationSlug: 'precision-nutrition-ug',
+          sentryOrganizationSlug: pluginPackConfig.sentryOrg(deployTarget),
           sentryProjectSlug: prefix,
           publicUrl: `${process.env.EMBER_CLI_ASSET_HOST}/${deployTarget}/${prefix}`,
 

@@ -16,7 +16,8 @@ Finally as part of the config step this build pack uses *scp* to copy the `ENV` 
 
 It also has a blueprint for your `config/deploy.js` file to get you started.
 
-## Installation
+Installation
+------------------------------------------------------------------------------
 
 ```
 ember install ember-cli-deploy

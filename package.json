@@ -2,27 +2,28 @@
   "name": "ember-cli-deploy-pn-pack",
   "version": "0.6.2",
   "description": "A pack of ember-cli-deploy plugins for deploying PrecisionNutrition's Ember apps.",
-  "scripts": {},
-  "repository": "https://github.com/precisionnutrition/ember-cli-deploy-pn-pack",
-  "engines": {
-    "node": ">= 0.10.0"
-  },
-  "author": "Mattia Gheda and the PN team",
-  "license": "MIT",
-  "devDependencies": {
-    "ember-cli": "1.13.13",
-    "ember-cli-release": "0.2.8"
-  },
   "keywords": [
     "ember-addon",
     "ember-cli-deploy-plugin-pack"
   ],
+  "repository": "https://github.com/precisionnutrition/ember-cli-deploy-pn-pack",
+  "license": "MIT",
+  "author": "Mattia Gheda and the PN team",
+  "scripts": {
+    "test:all": "ember try:each"
+  },
   "dependencies": {
     "dotenv": "^1.0.0",
     "ember-cli-deploy-lightning-pack": "~1.1.1",
-    "ember-cli-deploy-slack": "~1.0.0",
     "ember-cli-deploy-sentry": "^0.5.2",
+    "ember-cli-deploy-slack": "~1.0.0",
     "ember-cli-deploy-ssh-tunnel": "~1.0.0",
     "scp2": "^0.2.2"
+  },
+  "devDependencies": {
+    "ember-cli": "~3.4.3"
+  },
+  "engines": {
+    "node": "6.* || 8.* || >= 10.*"
   }
 }

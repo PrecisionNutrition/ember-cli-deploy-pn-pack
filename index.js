@@ -42,6 +42,7 @@ module.exports = {
         revisionKey: '__development__',
         keyPrefix: prefix,
         allowOverwrite: true,
+        maxRecentUploads: 100,
         host: 'localhost',
         port: 6379,
         distDir(context) {

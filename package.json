@@ -18,6 +18,7 @@
     "ember-cli-deploy-sentry": "^0.6.0",
     "ember-cli-deploy-slack": "^1.0.0",
     "ember-cli-deploy-ssh-tunnel": "^1.0.0",
+    "ember-cli-deploy-s3-index": "^1.0.1",
     "scp2": "^0.2.2"
   },
   "devDependencies": {

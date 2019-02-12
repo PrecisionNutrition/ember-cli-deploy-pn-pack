@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-deploy-pn-pack",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "A pack of ember-cli-deploy plugins for deploying PrecisionNutrition's Ember apps.",
   "keywords": [
     "ember-addon",

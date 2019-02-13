@@ -207,17 +207,18 @@ class PnConfiguration {
   }
 
   slack() {
+    let appName = this.appName;
     this.ENV.slack = {
       webhookURL: process.env.SLACK_DEPLOY_WEBHOOK_ENDPOINT,
 
       didDeploy(context) {
-        return function(slack){
+        return (slack) =>{
           var message;
           var revisionKey = context.revisionData.revisionKey;
           if (revisionKey && !context.revisionData.activatedRevisionKey) {
-            message = "Deployed " + this.appName + " to " + process.env.DEPLOY_TARGET + " but did not activate it.\n";
+            message = "Deployed " + appName + " to " + process.env.DEPLOY_TARGET + " but did not activate it.\n";
           } else {
-            message = `Deployed and activated ${this.appName} to ${process.env.DEPLOY_TARGET} (revision ${revisionKey})`;
+            message = `Deployed and activated ${appName} to ${process.env.DEPLOY_TARGET} (revision ${revisionKey})`;
           }
           return slack.notify(message);
         };
@@ -225,8 +226,8 @@ class PnConfiguration {
 
       didActivate(context) {
         if (context.commandOptions.revision) {
-          return function(slack){
-            let message = `Activated ${this.appName} revision on ${process.env.DEPLOY_TARGET}: ${context.revisionData.activatedRevisionKey}\n`;                                                                                                                 return slack.notify(message);
+          return (slack) => {
+            let message = `Activated ${appName} revision on ${process.env.DEPLOY_TARGET}: ${context.revisionData.activatedRevisionKey}\n`;                                                                                                                 return slack.notify(message);
           };
         }
       },

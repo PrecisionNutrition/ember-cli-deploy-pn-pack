@@ -52,7 +52,7 @@ class PnConfiguration {
 
     this.ENV.redis = {
       revisionKey: '__development__',
-      keyPrefix: prefix,
+      keyPrefix: this.prefix,
       allowOverwrite: true,
       maxRecentUploads: 100,
       host: 'localhost',

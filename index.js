@@ -66,7 +66,7 @@ class PnConfiguration {
   }
 
   async getStandardConfig() {
-    this.ENV.plugins = ['ssh-tunnel', 'build', 'gzip', 'revision-data', 'manifest', 's3:s3-all', 's3:s3-source-maps', 'redis', 'display-revisions', 'slack', 'sentry'];
+    this.ENV.plugins = ['ssh-tunnel', 'build', 'gzip', 'revision-data', 'manifest', 's3:s3-all', 's3:s3-source-maps', 'redis', 'display-revisions', 'slack'];
 
     let domain = this.pluginPackConfig.domain(this.deployTarget);
     let username = this.pluginPackConfig.SSH_USERNAME;
@@ -105,8 +105,6 @@ class PnConfiguration {
 
       this.slack();
 
-      this.sentry();
-
       return this.ENV;
     });
   }
@@ -129,7 +127,6 @@ class PnConfiguration {
         's3-index': false,
         'display-revisions': false,
         slack: false,
-        sentry: false,
         redis: true,
         'ssh-tunnel': true,
       },
@@ -147,8 +144,6 @@ class PnConfiguration {
     this.s3Assets();
 
     this.slack();
-
-    this.sentry();
 
     return this.ENV;
   }
@@ -233,21 +228,6 @@ class PnConfiguration {
       },
     };
   }
-
-  sentry() {
-    this.ENV.sentry = {
-      // the URL or CDN your js assets are served from
-      // the sentry install you're using, https://sentry.io for hosted accounts
-      sentryUrl: 'https://sentry.io',
-      sentryOrganizationSlug: this.pluginPackConfig.sentryOrg(this.deployTarget),
-      sentryProjectSlug: this.prefix,
-      publicUrl: `${process.env.EMBER_CLI_ASSET_HOST}/${this.deployTarget}/${this.prefix}`,
-
-      sentryApiKey: process.env.SENTRY_API_KEY,
-      sentryBearerApiKey: process.env.SENTRY_API_KEY,
-    };
-  }
-
 }
 
 module.exports = {

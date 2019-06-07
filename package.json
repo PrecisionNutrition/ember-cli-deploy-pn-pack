@@ -15,13 +15,13 @@
   "dependencies": {
     "dotenv": "^1.0.0",
     "ember-cli-deploy-lightning-pack": "^1.1.1",
+    "ember-cli-deploy-s3-index": "^1.0.1",
     "ember-cli-deploy-slack": "^1.0.0",
     "ember-cli-deploy-ssh-tunnel": "^1.0.0",
-    "ember-cli-deploy-s3-index": "^1.0.1",
     "scp2": "^0.2.2"
   },
   "devDependencies": {
-    "ember-cli": "~3.4.3"
+    "ember-cli": "~3.10.0"
   },
   "engines": {
     "node": "6.* || 8.* || >= 10.*"

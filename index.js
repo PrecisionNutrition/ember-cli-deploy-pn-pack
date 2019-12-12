@@ -130,10 +130,22 @@ class PnConfiguration {
         redis: true,
         'ssh-tunnel': true,
       },
-    },
+    }
 
-    this.accessKeyId = process.env[`${this.deployTarget.toUpperCase()}_AWS_ACCESS_KEY_ID`];
-    this.secretAccessKey = process.env[`${this.deployTarget.toUpperCase()}_AWS_SECRET_ACCESS_KEY`];
+    const targetPrefix = this.deployTarget.toUpperCase().replace('-', '_');
+
+    this.accessKeyId = process.env[`${targetPrefix}_AWS_ACCESS_KEY_ID`];
+    this.secretAccessKey = process.env[`${targetPrefix}_AWS_SECRET_ACCESS_KEY`];
+    this.awsRegion = process.env[`${targetPrefix}_AWS_REGION`];
+
+    this.environment = this.pluginPackConfig.isProduction(this.deployTarget) ? 'production' : 'staging';
+    this.citadelBucket = `precisionnutrition-${this.environment}-citadel`;
+
+    // for compatibility with s3Index(), s3Assets()
+    process.env['AWS_DEPLOYMENT_REGION'] = this.awsRegion;
+    process.env['AWS_ASSET_BUCKET'] = `precisionnutrition-${this.environment}-ember-deploy`;
+
+    await this.populateEnv();
 
     this.build();
 
@@ -146,6 +158,44 @@ class PnConfiguration {
     this.slack();
 
     return this.ENV;
+  }
+
+  async populateEnv() {
+    let AWS = require('aws-sdk');
+
+    let s3client = new AWS.S3({
+        region: this.awsRegion,
+        accessKeyId: this.accessKeyId,
+        secretAccessKey: this.secretAccessKey
+    });
+
+    let keys = (process.env['DEPLOY_ENV_KEYS'] || '').split(',');
+
+    for (const k of keys) {
+      await this.setEnvKey(k, this.getObjectContents(s3client, k));
+    }
+  }
+
+  async setEnvKey(key, value) {
+    try {
+      process.env[key] = await value;
+    } catch (err) {
+      console.error(`Error loading key: ${key} (${err.message})`);
+      throw err;
+    }
+  }
+
+  getObjectContents(s3client, name) {
+    return new Promise((resolve, reject) => {
+      const params = { Bucket: this.citadelBucket, Key: `keys/${this.environment}/${name}` };
+      s3client.getObject(params, (err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data.Body.toString());
+        }
+      });
+    });
   }
 
   build() {

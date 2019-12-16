@@ -192,7 +192,7 @@ class PnConfiguration {
         if (err) {
           reject(err);
         } else {
-          resolve(data.Body.toString());
+          resolve(data.Body.toString().trim());
         }
       });
     });

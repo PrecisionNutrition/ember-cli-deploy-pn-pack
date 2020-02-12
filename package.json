@@ -14,16 +14,16 @@
   },
   "dependencies": {
     "dotenv": "^1.0.0",
-    "ember-cli-deploy-lightning-pack": "^1.1.1",
+    "ember-cli-deploy-lightning-pack": "^2.0.0",
     "ember-cli-deploy-s3-index": "^1.0.1",
     "ember-cli-deploy-slack": "^1.0.0",
     "ember-cli-deploy-ssh-tunnel": "^1.0.0",
-    "scp2": "^0.2.2"
+    "scp2": "^0.5.0"
   },
   "devDependencies": {
-    "ember-cli": "~3.10.0"
+    "ember-cli": "~3.15.0"
   },
   "engines": {
-    "node": "6.* || 8.* || >= 10.*"
+    "node": "8.* || >= 10.*"
   }
 }

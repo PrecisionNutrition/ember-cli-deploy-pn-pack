@@ -109,12 +109,12 @@ class PnConfiguration {
     });
   }
 
-  async getNoeConfig() {
+  async getNoeConfig(masterBuild = false) {
     this.ENV.pipeline = {
       alias: {
         s3: {
           as: ['s3-all', 's3-source-maps']
-        }
+        },
       },
 
       disabled: {
@@ -125,11 +125,21 @@ class PnConfiguration {
         's3-all': false,
         's3-source-maps': false,
         's3-index': false,
+        's3-index-latest': false,
         'display-revisions': false,
         slack: false,
         redis: true,
         'ssh-tunnel': true,
       },
+    }
+
+    if (masterBuild) {
+      this.ENV.pipeline.alias['s3-index'] = {
+        as: ['s3-index-latest']
+      }
+
+      this.ENV.pipeline.disabled['s3-index'] = true;
+      this.ENV.pipeline.disabled['s3-index-latest'] = false;
     }
 
     const targetPrefix = this.deployTarget.toUpperCase().replace('-', '_');
@@ -151,7 +161,11 @@ class PnConfiguration {
 
     this.revisionData();
 
-    this.s3Index();
+    if (masterBuild) {
+      this.s3IndexLatest();
+    } else {
+      this.s3Index();
+    }
 
     this.s3Assets();
 
@@ -229,6 +243,18 @@ class PnConfiguration {
     };
   }
 
+  s3IndexLatest() {
+    this.ENV['s3-index-latest'] = {
+      revisionKey: '__latest__',
+      accessKeyId: this.accessKeyId,
+      secretAccessKey: this.secretAccessKey,
+      bucket: process.env.AWS_ASSET_BUCKET,
+      region: process.env.AWS_DEPLOYMENT_REGION,
+      prefix: `${this.deployTarget}/${this.prefix}/revisions`,
+      allowOverwrite: true,
+    };
+  }
+
   s3Assets() {
     this.ENV['s3-all'] = {
       accessKeyId: this.accessKeyId,
@@ -288,8 +314,8 @@ module.exports = {
     return config.getConfig();
   },
 
-  getNoeConfiguration(prefix, appName, deployTarget, pluginPackConfig) {
+  getNoeConfiguration(prefix, appName, deployTarget, pluginPackConfig, masterBuild = false) {
     let config = new PnConfiguration(prefix, appName, deployTarget, pluginPackConfig);
-    return config.getNoeConfig();
+    return config.getNoeConfig(masterBuild);
   },
 };

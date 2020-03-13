@@ -114,7 +114,10 @@ class PnConfiguration {
       alias: {
         s3: {
           as: ['s3-all', 's3-source-maps']
-        }
+        },
+        's3-index': {
+          as: ['s3-index', 's3-index-latest']
+        },
       },
 
       disabled: {
@@ -125,6 +128,7 @@ class PnConfiguration {
         's3-all': false,
         's3-source-maps': false,
         's3-index': false,
+        's3-index-latest': false,
         'display-revisions': false,
         slack: false,
         redis: true,
@@ -220,6 +224,15 @@ class PnConfiguration {
 
   s3Index() {
     this.ENV['s3-index'] = {
+      accessKeyId: this.accessKeyId,
+      secretAccessKey: this.secretAccessKey,
+      bucket: process.env.AWS_ASSET_BUCKET,
+      region: process.env.AWS_DEPLOYMENT_REGION,
+      prefix: `${this.deployTarget}/${this.prefix}/revisions`,
+      allowOverwrite: true,
+    };
+    this.ENV['s3-index-latest'] = {
+      revisionKey: '__latest__',
       accessKeyId: this.accessKeyId,
       secretAccessKey: this.secretAccessKey,
       bucket: process.env.AWS_ASSET_BUCKET,

@@ -286,12 +286,10 @@ class PnConfiguration {
         return (slack) =>{
           var message;
           var revisionKey = context.revisionData.revisionKey;
-          if (revisionKey && !context.revisionData.activatedRevisionKey) {
-            message = "Deployed " + appName + " to " + process.env.DEPLOY_TARGET + " but did not activate it.\n";
-          } else {
+          if (revisionKey && context.revisionData.activatedRevisionKey) {
             message = `Deployed and activated ${appName} to ${process.env.DEPLOY_TARGET} (revision ${revisionKey})`;
+            return slack.notify(message);
           }
-          return slack.notify(message);
         };
       },
 

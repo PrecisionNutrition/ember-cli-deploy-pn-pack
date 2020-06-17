@@ -148,8 +148,14 @@ class PnConfiguration {
     this.secretAccessKey = process.env[`${targetPrefix}_AWS_SECRET_ACCESS_KEY`];
     this.awsRegion = process.env[`${targetPrefix}_AWS_REGION`];
 
-    this.environment = this.pluginPackConfig.isProduction(this.deployTarget) ? 'production' : 'staging';
-    this.citadelBucket = `precisionnutrition-${this.environment}-citadel`;
+    if (this.pluginPackConfig.isProduction(this.deployTarget)) {
+      this.environment = 'production';
+      this.citadelEnvironment = 'production';
+    } else {
+      this.environment = 'staging';
+      this.citadelEnvironment = 'cd';
+    }
+    this.citadelBucket = `precisionnutrition-${this.citadelEnvironment}-citadel`;
 
     // for compatibility with s3Index(), s3Assets()
     process.env['AWS_DEPLOYMENT_REGION'] = this.awsRegion;
@@ -184,15 +190,16 @@ class PnConfiguration {
     });
 
     let keys = (process.env['DEPLOY_ENV_KEYS'] || '').split(',');
+    let application_settings = JSON.parse(await this.getObjectContents(s3client, 'application_settings'));
 
     for (const k of keys) {
-      await this.setEnvKey(k, this.getObjectContents(s3client, k));
+      await this.setEnvKey(k, application_settings[k]);
     }
   }
 
   async setEnvKey(key, value) {
     try {
-      process.env[key] = await value;
+      process.env[key] = value;
     } catch (err) {
       console.error(`Error loading key: ${key} (${err.message})`);
       throw err;
@@ -201,7 +208,7 @@ class PnConfiguration {
 
   getObjectContents(s3client, name) {
     return new Promise((resolve, reject) => {
-      const params = { Bucket: this.citadelBucket, Key: `keys/${this.environment}/${name}` };
+      const params = { Bucket: this.citadelBucket, Key: `keys/${this.citadelEnvironment}/${name}` };
       s3client.getObject(params, (err, data) => {
         if (err) {
           reject(err);

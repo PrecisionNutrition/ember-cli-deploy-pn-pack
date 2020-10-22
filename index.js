@@ -221,7 +221,7 @@ class PnConfiguration {
 
   build() {
     this.ENV.build = {
-      environment: this.pluginPackConfig.isProduction(this.deployTarget) ? 'production' : 'staging'
+      environment: 'production'
     };
   }
 

@@ -79,7 +79,7 @@ class PnConfiguration {
       this.secretAccessKey = process.env[`AWS_SECRET_ACCESS_KEY`];
 
       this.ENV.build = {
-        environment: this.pluginPackConfig.isProduction(this.deployTarget) ? 'production' : 'staging'
+        environment: 'production'
       };
 
       if (this.deployTarget === 'aws-prod' || this.deployTarget === 'aws-qa') {
@@ -221,7 +221,7 @@ class PnConfiguration {
 
   build() {
     this.ENV.build = {
-      environment: this.pluginPackConfig.isProduction(this.deployTarget) ? 'production' : 'staging'
+      environment: 'production'
     };
   }
 
